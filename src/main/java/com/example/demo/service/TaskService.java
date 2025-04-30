@@ -33,4 +33,12 @@ public class TaskService {
         return this.repository.findAllByTaskstatus(taskStatus);
     }
 
+    //@Transactional
+    public void updateTaskAsFinished(Long id){
+        //Optional<Task> oTask = this.repository.findById(id);
+        //if(oTask.isEmpty())
+        //    throw new ToDoExceptions("Task not found", HttpStatus.NOT_FOUND);
+        //else
+            this.repository.markTaskAsFinished(id);
+    }
 }
