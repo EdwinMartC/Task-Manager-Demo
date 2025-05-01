@@ -46,4 +46,14 @@ public class TaskService {
         else
             this.repository.markTaskAsFinished(id);
     }
+
+    @Transactional
+    public void deleteById(Long id){
+        Optional<Task> oTask = this.repository.findById(id);
+        if(oTask.isEmpty()) {
+            throw new ToDoExceptions("Task not found", HttpStatus.NOT_FOUND);
+        }
+        else
+            this.repository.deleteById(id);
+    }
 }
