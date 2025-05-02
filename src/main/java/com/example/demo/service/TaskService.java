@@ -37,23 +37,24 @@ public class TaskService {
         return this.repository.findAllByTaskstatus(taskStatus);
     }
 
-    @Transactional
-    public void updateTaskAsFinished(Long id){
+    public Task findTaskById(Long id){
         Optional<Task> oTask = this.repository.findById(id);
         if(oTask.isEmpty()) {
             throw new ToDoExceptions("Task not found", HttpStatus.NOT_FOUND);
         }
         else
-            this.repository.markTaskAsFinished(id);
+            return oTask.get();
+    }
+
+    @Transactional
+    public void updateTaskAsFinished(Long id){
+        findTaskById(id);
+        this.repository.markTaskAsFinished(id);
     }
 
     @Transactional
     public void deleteById(Long id){
-        Optional<Task> oTask = this.repository.findById(id);
-        if(oTask.isEmpty()) {
-            throw new ToDoExceptions("Task not found", HttpStatus.NOT_FOUND);
-        }
-        else
-            this.repository.deleteById(id);
+        findTaskById(id);
+        this.repository.deleteById(id);
     }
 }

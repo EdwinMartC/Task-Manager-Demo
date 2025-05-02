@@ -4,6 +4,7 @@ import com.example.demo.persistence.Entity.Task;
 import com.example.demo.persistence.Entity.TaskStatus;
 import com.example.demo.service.TaskService;
 import com.example.demo.service.dto.TaskInDTO;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,11 @@ public class TaskController {
     @GetMapping
     public List<Task> findAllTask(){
         return this.taskService.findAllTask();
+    }
+
+    @GetMapping("/id/{id}")
+    public Task findTaskById(@PathVariable("id") Long id){
+        return this.taskService.findTaskById(id);
     }
 
     @GetMapping("/status/{status}")
